@@ -15,7 +15,7 @@ SMTP_EMAIL = os.environ.get('SMTP_EMAIL')
 SMTP_PASSWORD = os.environ.get('SMTP_PASSWORD')
 
 MYSQL_HOST = os.environ.get('MYSQL_HOST')
-MYSQL_SCHEMA = os.environ.get('MYSQL_SCHEMA')
+MYSQL_DATABASE = os.environ.get('MYSQL_DATABASE')
 MYSQL_USER = os.environ.get('MYSQL_USER')
 MYSQL_PASSWORD = os.environ.get('MYSQL_PASSWORD')
 
@@ -35,6 +35,7 @@ def job():
             host=MYSQL_HOST,
             user=MYSQL_USER,
             password=MYSQL_PASSWORD,
+            database=MYSQL_DATABASE
         ) as connection:
             print(connection)
     except Error as e:
@@ -43,8 +44,10 @@ def job():
     # TODO Write Script
 
 
-schedule.every().day.at('15:00').do(job)
+job()
 
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+# schedule.every().day.at('15:00').do(job)
+
+# while True:
+#    schedule.run_pending()
+#    time.sleep(1)

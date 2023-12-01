@@ -32,5 +32,9 @@ The script reads in email templates everytime it is ran. You can customize the t
 | SMTP_PORT      | true     | ---     | 465                            | SMTP Server                   |
 | SMTP_EMAIL     | true     | ---     | laura@example.com              | SMTP Server                   |
 | SMTP_PASSWORD  | true     | ---     | 8f5cd6729h0v5d247vc190ddcs4l2a | SMTP Server                   |
+| MYSQL_HOST     | true     | ---     | mysql.example.com:3306         | MySQL Server                  |
+| MYSQL_USER     | true     | ---     | laura@example.com              | MySQL Server                  |
+| MYSQL_PASSWORD | true     | ---     | 8f5cd6729h0v5d247vc190ddcs4l2a | MySQL Server                  |
+| MYSQL_DATABASE | true     | ---     | nginx_proxy_manager            | MySQL Server                  |
 
 **NOTE:** For security purposes, it is strong recommended that you use a generated API passwords.
