@@ -1,9 +1,9 @@
-version: '3.5'
+version: "3.5"
 
 services:
   nginx_certs_expiry_reminder:
     container_name: nginx_certs_expiry_reminder
-    image: 'nginx_certs_expiry_reminder/nginx_certs_expiry_reminder:latest'
+    image: "nginx_certs_expiry_reminder/nginx_certs_expiry_reminder:latest"
     restart: always
     network_mode: host
     build:
@@ -14,11 +14,11 @@ services:
       - 1.0.0.1
     environment:
       TZ: America/Los_Angeles
-      FROM_EMAIL: '${FROM_EMAIL}'
-      TO_EMAIL: '${TO_EMAIL}'
-      EMAIL_GREETING: '${EMAIL_GREETING}'
-      SMTP_URL: '${SMTP_URL}'
-      SMTP_PORT: '${SMTP_PORT}'
-      SMTP_EMAIL: '${SMTP_EMAIL}'
-      SMTP_PASSWORD: '${SMTP_PASSWORD}'
-      LAST_NAMES: '${LAST_NAMES}'
+      FROM_EMAIL: "${FROM_EMAIL}"
+      TO_EMAIL: "${TO_EMAIL}"
+      EMAIL_GREETING: "${EMAIL_GREETING}"
+      SMTP_URL: "${SMTP_URL}"
+      SMTP_PORT: "${SMTP_PORT}"
+      SMTP_EMAIL: "${SMTP_EMAIL}"
+      SMTP_PASSWORD: "${SMTP_PASSWORD}"
+      LAST_NAMES: "${LAST_NAMES}"
