@@ -9,9 +9,6 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    dns:
-      - 1.1.1.1
-      - 1.0.0.1
     environment:
       TZ: America/Los_Angeles
       FROM_EMAIL: "${FROM_EMAIL}"
