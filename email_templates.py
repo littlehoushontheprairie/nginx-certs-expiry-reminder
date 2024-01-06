@@ -6,13 +6,13 @@ class EmailTemplates:
         file = open("templates/error.html", "r")
         self.error_template = file.read()
 
-    def generate_basic_template(self, entries):
+    def generate_basic_template(self, entries: dict) -> str:
         return self.basic_template.format(email_greeting=entries["email_greeting"], certs=entries["certs"])
 
-    def generate_error_template(self, entries):
+    def generate_error_template(self, entries: dict) -> str:
         return self.error_template.format(email_greeting=entries["email_greeting"], error_message=entries["error_message"])
 
-    def generate_cert_list(self, results):
+    def generate_cert_list(self, results: list) -> str:
         html = "<h4>Expiring Certs:</h4>"
         html = html + "<ul>"
 
