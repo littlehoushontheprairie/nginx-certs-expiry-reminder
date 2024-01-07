@@ -16,10 +16,10 @@ SMTP_PORT: str = os.environ.get("SMTP_PORT", "")
 SMTP_EMAIL: str = os.environ.get("SMTP_EMAIL", "")
 SMTP_PASSWORD: str = os.environ.get("SMTP_PASSWORD", "")
 
-MYSQL_HOST = os.environ.get("MYSQL_HOST")
-MYSQL_DATABASE = os.environ.get("MYSQL_DATABASE")
-MYSQL_USER = os.environ.get("MYSQL_USER")
-MYSQL_PASSWORD = os.environ.get("MYSQL_PASSWORD")
+MYSQL_HOST: str = os.environ.get("MYSQL_HOST", "")
+MYSQL_DATABASE: str = os.environ.get("MYSQL_DATABASE", "")
+MYSQL_USER: str = os.environ.get("MYSQL_USER", "")
+MYSQL_PASSWORD: str = os.environ.get("MYSQL_PASSWORD", "")
 
 MYSQL_QUERY: str = "SELECT nice_name as cert_name FROM nginx_proxy_manager.certificate where is_deleted = 0 and expires_on > '{two_weeks_from_now_a}' and expires_on < '{two_weeks_from_now_b}' and provider = 'other';"
 

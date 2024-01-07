@@ -5,7 +5,7 @@ services:
     container_name: nginx_certs_expiry_reminder
     image: "nginx_certs_expiry_reminder/nginx_certs_expiry_reminder:latest"
     restart: always
-    network_mode: host
+    network_mode: bridge
     build:
       context: .
       dockerfile: ./Dockerfile
