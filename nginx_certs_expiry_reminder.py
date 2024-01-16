@@ -21,7 +21,7 @@ MYSQL_DATABASE: str = os.environ.get("MYSQL_DATABASE", "")
 MYSQL_USER: str = os.environ.get("MYSQL_USER", "")
 MYSQL_PASSWORD: str = os.environ.get("MYSQL_PASSWORD", "")
 
-MYSQL_QUERY: str = "SELECT nice_name as cert_name FROM nginx_proxy_manager.certificate where is_deleted = 0 and expires_on > '{two_weeks_from_now_a}' and expires_on < '{two_weeks_from_now_b}' and provider = 'other';"
+MYSQL_QUERY: str = "SELECT c.nice_name AS cert_name FROM certificate c LEFT JOIN proxy_host p ON c.id = p.certificate_id WHERE c.is_deleted = 0 AND c.expires_on > '{two_weeks_from_now_a}' AND c.expires_on < '{two_weeks_from_now_b}' AND p.id IS NULL;"
 
 # Enable logging
 logging.basicConfig(format="%(asctime)s %(levelname)-8s %(message)s",
