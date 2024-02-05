@@ -23,19 +23,20 @@ The script reads in email templates everytime it is ran. You can customize the t
 
 ## Environment Variables
 
-| Variable        | Required | Default | Example                        | Needed by                     |
-| --------------- | -------- | ------- | ------------------------------ | ----------------------------- |
-| SCRIPT_RUN_TIME | false    | 06:00   | 00:00 - 23:59                  | Scheduler                     |
-| FROM_EMAIL      | true     | ---     | from@example.com               | SMTP Server (send email from) |
-| TO_EMAIL        | true     | ---     | to@example.com                 | SMTP Server (send email to)   |
-| EMAIL_GREETING  | true     | ---     | Laura                          | Template                      |
-| SMTP_URL        | true     | ---     | smtp.example.com               | SMTP Server                   |
-| SMTP_PORT       | true     | ---     | 465                            | SMTP Server                   |
-| SMTP_EMAIL      | true     | ---     | laura@example.com              | SMTP Server                   |
-| SMTP_PASSWORD   | true     | ---     | 8f5cd6729h0v5d247vc190ddcs4l2a | SMTP Server                   |
-| MYSQL_HOST      | true     | ---     | mysql.example.com:3306         | MySQL Server                  |
-| MYSQL_USER      | true     | ---     | laura@example.com              | MySQL Server                  |
-| MYSQL_PASSWORD  | true     | ---     | 8f5cd6729h0v5d247vc190ddcs4l2a | MySQL Server                  |
-| MYSQL_DATABASE  | true     | ---     | nginx_proxy_manager            | MySQL Server                  |
+| Variable        | Required | Default                     | Example                        | Needed by                     |
+| --------------- | -------- | --------------------------- | ------------------------------ | ----------------------------- |
+| SCRIPT_RUN_TIME | false    | 06:00                       | 00:00 - 23:59                  | Scheduler                     |
+| FROM_NAME       | true     | NGINX Certs Expiry Reminder | NGINX Certs Expiry Reminder    | SMTP Server (send email from) |
+| FROM_EMAIL      | true     | ---                         | from@example.com               | SMTP Server (send email from) |
+| TO_NAME         | false    |                             |                                | SMTP Server (send email to)   |
+| TO_EMAIL        | true     | ---                         | to@example.com                 | SMTP Server (send email to)   |
+| SMTP_HOST       | true     | ---                         | smtp.example.com               | SMTP Server                   |
+| SMTP_PORT       | false    | 465                         | 465                            | SMTP Server                   |
+| SMTP_USER       | true     | ---                         | laura@example.com              | SMTP Server                   |
+| SMTP_PASSWORD   | true     | ---                         | 8f5cd6729h0v5d247vc190ddcs4l2a | SMTP Server                   |
+| MYSQL_HOST      | true     | ---                         | mysql.example.com              | MySQL Server                  |
+| MYSQL_USER      | true     | ---                         | laura@example.com              | MySQL Server                  |
+| MYSQL_PASSWORD  | true     | ---                         | 8f5cd6729h0v5d247vc190ddcs4l2a | MySQL Server                  |
+| MYSQL_DATABASE  | true     | ---                         | nginx_proxy_manager            | MySQL Server                  |
 
 **NOTE:** For security purposes, it is strong recommended that you use a generated API passwords.

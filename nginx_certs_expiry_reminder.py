@@ -3,17 +3,20 @@ import os
 import logging
 import schedule
 import time
-from mysql.connector import connect, Error
-from smtp import SMTP
+from mysql.connector import connect, Error, errorcode
+from smtp import SMTP, Email, SMTPOptions
 from email_templates import EmailTemplates
 
 SCRIPT_RUN_TIME: str = os.environ.get("SCRIPT_RUN_TIME", "06:00")
+
+FROM_NAME: str = os.environ.get("FROM_NAME", "NGINX Certs Expiry Reminder")
 FROM_EMAIL: str = os.environ.get("FROM_EMAIL", "")
+TO_NAME: str = os.environ.get("TO_NAME", "")
 TO_EMAIL: str = os.environ.get("TO_EMAIL", "")
-EMAIL_GREETING: str = os.environ.get("EMAIL_GREETING", "")
-SMTP_URL: str = os.environ.get("SMTP_URL", "")
-SMTP_PORT: str = os.environ.get("SMTP_PORT", "")
-SMTP_EMAIL: str = os.environ.get("SMTP_EMAIL", "")
+
+SMTP_HOST: str = os.environ.get("SMTP_HOST", "")
+SMTP_PORT: int = os.environ.get("SMTP_PORT", 465)
+SMTP_USER: str = os.environ.get("SMTP_USER", "")
 SMTP_PASSWORD: str = os.environ.get("SMTP_PASSWORD", "")
 
 MYSQL_HOST: str = os.environ.get("MYSQL_HOST", "")
@@ -30,8 +33,9 @@ logging.basicConfig(format="%(asctime)s %(levelname)-8s %(message)s",
 
 def job():
     logging.info("Running job...")
-    smtp: SMTP = SMTP(smtp_url=SMTP_URL, smtp_port=SMTP_PORT,
-                      smtp_email=SMTP_EMAIL, smtp_password=SMTP_PASSWORD)
+    smtp_options = SMTPOptions(
+        host=SMTP_HOST, port=SMTP_PORT, username=SMTP_USER, password=SMTP_PASSWORD)
+    smtp: SMTP = SMTP(smtp_options=smtp_options)
     email_templates: EmailTemplates = EmailTemplates()
 
     try:
@@ -54,30 +58,39 @@ def job():
             results = cursor.fetchall()
 
             if (len(results) > 0):
-                subject: str = "{} certs are going to expire in 2 weeks.".format(
-                    str(len(results)))
-                body: str = email_templates.generate_basic_template(
-                    dict(email_greeting=EMAIL_GREETING, certs=email_templates.generate_cert_list(results=results)))
-                smtp.send_email(from_email=FROM_EMAIL, to_email=TO_EMAIL,
-                                subject=subject, body=body)
+                email: Email = Email(
+                    from_name=FROM_NAME, from_email=FROM_EMAIL, to_name=TO_NAME, to_email=TO_EMAIL,
+                    subject=f"{str(len(results))} certs are going to expire in 2 weeks.",
+                    body=email_templates.generate_basic_template(
+                        dict(to_name=TO_NAME, certs=email_templates.generate_cert_list(results=results))))
+                smtp.send_email(email=email)
 
-                logging.info(subject)
+                logging.info(
+                    f"{str(len(results))} certs are going to expire in 2 weeks.")
 
             else:
                 logging.info("No certs are going to expire in 2 weeks.")
 
-    except Error as e:
-        logging.error("Failed to connect to the database.")
-        subject: str = "Database Connection Error"
-        body: str = email_templates.generate_error_template(
-            dict(email_greeting=EMAIL_GREETING, error_message="An error has occurred."))
-        smtp.send_email(from_email=FROM_EMAIL, to_email=TO_EMAIL,
-                        subject=subject, body=body)
+    except Error as error:
+        if error.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            logging.error("Something is wrong with your user name or password")
+        elif error.errno == errorcode.ER_BAD_DB_ERROR:
+            logging.error("Database does not exist")
+        else:
+            logging.error(error)
+
+        email: Email = Email(
+            from_name=FROM_NAME, from_email=FROM_EMAIL, to_name=TO_NAME, to_email=TO_EMAIL,
+            subject="Database Connection Error",
+            body=email_templates.generate_error_template(
+                dict(to_name=TO_NAME, error_message=error)))
+        smtp.send_email(email=email)
 
     logging.info("Job finished.")
 
 
-schedule.every().day.at(SCRIPT_RUN_TIME).do(job)
+# schedule.every().day.at(SCRIPT_RUN_TIME).do(job)
+schedule.every(10).seconds.do(job)
 
 while True:
     schedule.run_pending()

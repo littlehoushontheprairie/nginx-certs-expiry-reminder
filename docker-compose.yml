@@ -5,18 +5,17 @@ services:
     container_name: nginx_certs_expiry_reminder
     image: "nginx_certs_expiry_reminder/nginx_certs_expiry_reminder:latest"
     restart: always
-    network_mode: bridge
+    network_mode: host
     build:
       context: .
       dockerfile: ./Dockerfile
     environment:
       TZ: America/Los_Angeles
       FROM_EMAIL: "${FROM_EMAIL}"
+      TO_NAME: "${TO_NAME}"
       TO_EMAIL: "${TO_EMAIL}"
-      EMAIL_GREETING: "${EMAIL_GREETING}"
-      SMTP_URL: "${SMTP_URL}"
-      SMTP_PORT: "${SMTP_PORT}"
-      SMTP_EMAIL: "${SMTP_EMAIL}"
+      SMTP_HOST: "${SMTP_HOST}"
+      SMTP_USER: "${SMTP_USER}"
       SMTP_PASSWORD: "${SMTP_PASSWORD}"
       MYSQL_HOST: "${MYSQL_HOST}"
       MYSQL_USER: "${MYSQL_USER}"
