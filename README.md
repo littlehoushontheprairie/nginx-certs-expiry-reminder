@@ -4,6 +4,18 @@ Need something that notifies you when a manual NGINX cert expires? This script w
 
 ## Setup
 
+#### Running Locally
+1. Download repo
+    - `git clone https://github.com/littlehoushontheprairie/nginx-certs-expiry-reminder.git`
+    - `git checkout develop`
+    - `git pull`
+    - `cd nginx-certs-expiry-reminder`
+2. Export environment variables
+3. Run
+    - `python3 nginx_certs_expiry_reminder.py`
+
+#### Building and Running as Container from Source
+
 1. Download repo
     - `git checkout develop`
     - `git pull`
@@ -11,6 +23,14 @@ Need something that notifies you when a manual NGINX cert expires? This script w
 2. Export environment variables
 3. run docker-compose
     - `docker-compose up --build -d`
+
+#### Running Container from GitHub Docker Registry (using Terminal)
+
+1. Export environment variables
+2. Download `latest` container
+    - `docker pull ghcr.io/littlehoushontheprairie/nginx-certs-expiry-reminder:latest`
+3. Run container
+    - `docker run --restart=always -d --network host --name nginx-certs-expiry-reminder littlehoushontheprairie/nginx-certs-expiry-reminder:latest`
 
 ## Email Templates
 
