@@ -1,3 +1,8 @@
+LABEL org.opencontainers.image.source=https://github.com/littlehoushontheprairie/nginx-certs-expiry-reminder
+LABEL org.opencontainers.image.description="NGINX Certs Expiry Reminder container image"
+LABEL org.opencontainers.image.licenses=BSD-3-Clause
+
+
 FROM python:latest
 
 WORKDIR /usr/src/app
