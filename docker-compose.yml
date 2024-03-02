@@ -3,7 +3,7 @@ version: "3.5"
 services:
   nginx_certs_expiry_reminder:
     container_name: nginx_certs_expiry_reminder
-    image: "littlehoushontheprairie/nginx_certs_expiry_reminder:latest"
+    image: littlehoushontheprairie/nginx_certs_expiry_reminder:latest
     restart: always
     network_mode: host
     build:
@@ -11,12 +11,10 @@ services:
       dockerfile: ./Dockerfile
     environment:
       TZ: America/Los_Angeles
-      FROM_NAME: "${FROM_NAME}"
       FROM_EMAIL: "${FROM_EMAIL}"
       TO_NAME: "${TO_NAME}"
       TO_EMAIL: "${TO_EMAIL}"
       SMTP_HOST: "${SMTP_HOST}"
-      SMTP_PORT: ${SMTP_PORT}
       SMTP_USER: "${SMTP_USER}"
       SMTP_PASSWORD: "${SMTP_PASSWORD}"
       MYSQL_HOST: "${MYSQL_HOST}"

@@ -10,21 +10,31 @@ from email_templates import EmailTemplates
 SCRIPT_RUN_TIME: str = os.environ.get("SCRIPT_RUN_TIME", "06:00")
 
 FROM_NAME: str = os.environ.get("FROM_NAME", "NGINX Certs Expiry Reminder")
-FROM_EMAIL: str = os.environ.get("FROM_EMAIL", "")
+FROM_EMAIL: str = os.environ.get("FROM_EMAIL")
 TO_NAME: str = os.environ.get("TO_NAME", "")
-TO_EMAIL: str = os.environ.get("TO_EMAIL", "")
+TO_EMAIL: str = os.environ.get("TO_EMAIL")
 
-SMTP_HOST: str = os.environ.get("SMTP_HOST", "")
-SMTP_PORT: int = os.environ.get("SMTP_PORT", 465)
-SMTP_USER: str = os.environ.get("SMTP_USER", "")
-SMTP_PASSWORD: str = os.environ.get("SMTP_PASSWORD", "")
+SMTP_HOST: str = os.environ.get("SMTP_HOST")
+SMTP_PORT: int = int(os.environ.get("SMTP_PORT", 465))
+SMTP_USER: str = os.environ.get("SMTP_USER")
+SMTP_PASSWORD: str = os.environ.get("SMTP_PASSWORD")
 
-MYSQL_HOST: str = os.environ.get("MYSQL_HOST", "")
-MYSQL_DATABASE: str = os.environ.get("MYSQL_DATABASE", "")
-MYSQL_USER: str = os.environ.get("MYSQL_USER", "")
-MYSQL_PASSWORD: str = os.environ.get("MYSQL_PASSWORD", "")
+MYSQL_HOST: str = os.environ.get("MYSQL_HOST")
+MYSQL_DATABASE: str = os.environ.get("MYSQL_DATABASE")
+MYSQL_USER: str = os.environ.get("MYSQL_USER")
+MYSQL_PASSWORD: str = os.environ.get("MYSQL_PASSWORD")
 
 MYSQL_QUERY: str = "SELECT c.nice_name AS cert_name FROM certificate c LEFT JOIN proxy_host p ON c.id = p.certificate_id WHERE c.is_deleted = 0 AND c.expires_on > '{two_weeks_from_now_a}' AND c.expires_on < '{two_weeks_from_now_b}' AND p.id IS NULL;"
+
+assert (FROM_EMAIL is None, "FROM_EMAIL is required.")
+assert (TO_EMAIL is None, "TO_EMAIL is required.")
+assert (SMTP_HOST is None, "SMTP_HOST is required.")
+assert (SMTP_USER is None, "SMTP_USER is required.")
+assert (SMTP_PASSWORD is None, "SMTP_PASSWORD is required.")
+assert (MYSQL_HOST is None, "MYSQL_HOST is required.")
+assert (MYSQL_DATABASE is None, "MYSQL_DATABASE is required.")
+assert (MYSQL_USER is None, "MYSQL_USER is required.")
+assert (MYSQL_PASSWORD is None, "MYSQL_PASSWORD is required.")
 
 # Enable logging
 logging.basicConfig(format="%(asctime)s %(levelname)-8s %(message)s",
