@@ -26,6 +26,7 @@ MYSQL_PASSWORD: str = os.environ.get("MYSQL_PASSWORD")
 
 MYSQL_QUERY: str = "SELECT c.nice_name AS cert_name FROM certificate c LEFT JOIN proxy_host p ON c.id = p.certificate_id WHERE c.is_deleted = 0 AND c.expires_on > '{two_weeks_from_now_a}' AND c.expires_on < '{two_weeks_from_now_b}' AND p.id IS NULL;"
 
+
 assert (FROM_EMAIL is None, "FROM_EMAIL is required.")
 assert (TO_EMAIL is None, "TO_EMAIL is required.")
 assert (SMTP_HOST is None, "SMTP_HOST is required.")
@@ -35,6 +36,7 @@ assert (MYSQL_HOST is None, "MYSQL_HOST is required.")
 assert (MYSQL_DATABASE is None, "MYSQL_DATABASE is required.")
 assert (MYSQL_USER is None, "MYSQL_USER is required.")
 assert (MYSQL_PASSWORD is None, "MYSQL_PASSWORD is required.")
+
 
 # Enable logging
 logging.basicConfig(format="%(asctime)s %(levelname)-8s %(message)s",
