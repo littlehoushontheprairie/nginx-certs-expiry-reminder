@@ -5,6 +5,7 @@ Need something that notifies you when a manual NGINX cert expires? This script w
 ## Setup
 
 #### Running Locally
+
 1. Download repo
     - `git clone https://github.com/littlehoushontheprairie/nginx-certs-expiry-reminder.git`
     - `git checkout develop`
@@ -31,7 +32,7 @@ Need something that notifies you when a manual NGINX cert expires? This script w
 2. Run container
     - ```
       docker run --restart=always -d --network host \
-      --name nginx-certs-expiry-reminder \
+      --name nginx_certs_expiry_reminder \
       -e TZ="America/Los_Angeles" \
       -e FROM_EMAIL="from@example.com" \
       -e TO_EMAIL="to@example.com" \
@@ -45,14 +46,14 @@ Need something that notifies you when a manual NGINX cert expires? This script w
       ghcr.io/littlehoushontheprairie/nginx-certs-expiry-reminder:latest
       ```
 
-
 #### Running Container from GitHub Docker Registry (using docker-compose)
 
 1. Create `docker-compose.yml` file
 2. Add content.
+
     - ```
       version: "3.5"
-      
+
       services:
           nginx_certs_expiry_reminder:
               container_name: nginx_certs_expiry_reminder
@@ -61,12 +62,9 @@ Need something that notifies you when a manual NGINX cert expires? This script w
               network_mode: host
               environment:
                   TZ: America/Los_Angeles
-                  FROM_NAME: "${FROM_NAME}"
                   FROM_EMAIL: "${FROM_EMAIL}"
-                  TO_NAME: "${TO_NAME}"
                   TO_EMAIL: "${TO_EMAIL}"
                   SMTP_HOST: "${SMTP_HOST}"
-                  SMTP_PORT: ${SMTP_PORT}
                   SMTP_USER: "${SMTP_USER}"
                   SMTP_PASSWORD: "${SMTP_PASSWORD}"
                   MYSQL_HOST: "${MYSQL_HOST}"
@@ -74,6 +72,7 @@ Need something that notifies you when a manual NGINX cert expires? This script w
                   MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
                   MYSQL_DATABASE: "${MYSQL_DATABASE}"
       ```
+
 3. Export environment variables
 4. Run `docker-compose up -d`
 
