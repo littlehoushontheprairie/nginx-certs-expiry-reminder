@@ -14,4 +14,4 @@ COPY templates/error.html ./templates/error.html
 RUN chmod 0755 nginx_certs_expiry_reminder.py smtp.py email_templates.py templates/index.html templates/error.html 
 RUN pip install schedule mysql-connector-python
 
-CMD [ "python", "./nginx_certs_expiry_reminder.py" ]
+CMD [ "python", "-Wignore", "./nginx_certs_expiry_reminder.py" ]
